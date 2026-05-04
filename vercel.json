@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/vinted", "destination": "/api/vinted.js" }
+  ]
+}
