@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+  // Allow all origins (ton app frontend)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -13,9 +14,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing search param' });
   }
 
+  // Build Vinted URL
   let vintedUrl = `https://www.vinted.fr/api/v2/catalog/items?search_text=${encodeURIComponent(search)}&order=newest_first&per_page=${per_page}`;
   if (price_from) vintedUrl += `&price_from=${price_from}`;
-  if (price_to) vintedUrl += `&price_to=${price_to}`;
+  if (price_to)   vintedUrl += `&price_to=${price_to}`;
 
   try {
     const response = await fetch(vintedUrl, {
